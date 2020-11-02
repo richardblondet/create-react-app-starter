@@ -1,5 +1,6 @@
 import React, { lazy, Suspense } from 'react';
 import { Route, BrowserRouter, Switch } from 'react-router-dom';
+import { Loading } from '../components/Loaders';
 
 /**
  * Routes
@@ -26,7 +27,7 @@ const Page404 = lazy(() => import('./404'));
 /** Routes Component */
 const Routes = () => (
   <BrowserRouter>
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Loading />}>
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/about" component={About} />
