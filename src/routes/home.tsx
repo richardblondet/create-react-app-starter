@@ -1,19 +1,17 @@
 import React, { useContext } from 'react';
-import { RootStore } from '../store/providers';
+import { ApplicationStore } from '../store/providers';
 import logo from '../logo.svg';
 
 const Home = (props:any) => {
-  const rootContext = useContext(RootStore);
-
-  // console.log("%c props", "font-size:2em;", props);
-  // console.log("%c rootContext", "font-size:2em;", rootContext);
+  const { state } = useContext(ApplicationStore);
+  // console.log("%c AppStore", "font-size:2em;", state);
   
   return (
     <div className="App">
       <header className="App-header updated">
         <img src={logo} height="auto" className="App-logo" alt="logo" />
         <p>
-          <code>React JS Frontend Development</code>
+          <code>React JS Frontend Development. Version { state.version }</code>
         </p>
         <a
           className="App-link"
