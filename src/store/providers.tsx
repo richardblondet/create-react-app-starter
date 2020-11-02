@@ -1,24 +1,25 @@
-import React, { useReducer, useContext } from 'react';
+import { ApplicationState } from './states';
+import { ApplicationReducer } from './reducers';
+import { ApplicationStoreReducerActions, ApplicationStoreState } from './types';
+import { storeReducerFactory } from './utils';
 
 /**
+ * Store Providers
  * 
+ * A modern React application can contain (n) providers.
+ * Stores can be reducers or simple contexts.
+ * 
+ * For future reference:
  * @see {@link https://medium.com/simply/state-management-with-react-hooks-and-context-api-at-10-lines-of-code-baf6be8302c} 
  */
+export default 'store/providers';
 
-export const RootStore:any = React.createContext({});
 
-export const RootStoreProvider:any = ({ reducer, initialState, children }: { reducer: any, initialState: any,  children: React.ReactNode }): React.ReactNode => {
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const value = { state, dispatch };
-  return (
-    <RootStore.Provider value={value}>
-      {children}
-    </RootStore.Provider>
+/** Application Provider */
+export const [ApplicationStore, ApplicationStoreProvider] =
+  storeReducerFactory<ApplicationStoreState, ApplicationStoreReducerActions>(
+    ApplicationReducer,
+    ApplicationState
   );
-};
 
-export default {
-  providers: ['RootStore']
-};
 
-export const useStateValue = () => useContext(RootStore);

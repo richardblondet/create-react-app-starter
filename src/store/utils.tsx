@@ -44,13 +44,16 @@ export const storeReducerFactory = <StateType, ActionType>(
   initialValues: StateType,
 ) => {
   
+  /** Our reducers needs a dispatcher */
   const dispatcher: Dispatch<ActionType> = (value:ActionType) => initialValues;
   
+  /** The store context */
   const Store = createContext({
     state: initialValues,
     dispatch: dispatcher
   });
   
+  /** Provider Component */
   const Provider:FunctionComponent = (props) => {
     const [state, dispatch] = useReducer<Reducer<StateType, ActionType>>(reducer, initialValues);
     
@@ -59,6 +62,7 @@ export const storeReducerFactory = <StateType, ActionType>(
     );
   };
 
+  /** Them */
   return [Store, Provider] as const;
 }
 

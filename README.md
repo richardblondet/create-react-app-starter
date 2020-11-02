@@ -1,2 +1,6 @@
-# React App Starter
-Personal starter from Create React App, with Storybook, a Route, a Context Provider and Storybook
+![License](https://img.shields.io/badge/license-MIT-green)
+![Version](https://img.shields.io/badge/version------red)
+
+## React Application Starter
+---
+Description.

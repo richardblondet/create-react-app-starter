@@ -2,13 +2,14 @@
  * Actions 
  * 
  * Keep them simple and use inference/optional
+ * Having them all in the same file for small apps or creating
+ * an action directory if needed.
  */
+export default 'store/actions'
 
-/**
- * Example
- * import <Interface> from './types';
- * export const ADD_ITEM = 'ADD_ITEM';
- * export const addItem = (item:<Interface>): Interface => ({ type: ADD_ITEM, payload: item });
- * 
- */
-export default {}
+
+/** ApplicationStoreReducerActions */
+export const APP_INIT = '@APP/APP_INIT';
+export const init = () => ({
+  type: APP_INIT
+});
