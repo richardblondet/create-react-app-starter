@@ -9,12 +9,13 @@ import './App.css';
  * Towards version 1.0.0
  * 
  * @todo 
-  - Routing
-  - Internationalization
-  - Storybook
-  - Theming
+ - Internationalization
+ - Storybook
+ - Theming
+ - Auth Routing
   - 
  */
+
 const App = () => {
   // return <div>hello world. starting with providers</div>;
 
