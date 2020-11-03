@@ -3,9 +3,16 @@ import React, {
   useReducer, 
   Reducer, 
   Dispatch, 
-  createContext, 
+  createContext,
+  useContext, 
 } from "react";
-import { Action, ReducersHandlers, State } from "./types";
+import { 
+  Action, 
+  Languages, 
+  ReducersHandlers, 
+  State } from "./types";
+import EN from '../i18n/en.json';
+import ES from '../i18n/es.json';
 
 /**
  * Utils 
@@ -21,12 +28,27 @@ export default 'store/utils';
  * only hold 1 children.
  */
 export const composeComponent = (wrappers: FunctionComponent[]): FunctionComponent => {
-  const composed = wrappers.reduce((Acc, Current): FunctionComponent => {
+  return wrappers.reduce((Acc, Current): FunctionComponent => {
     return props => <Current><Acc {...props} /></Current>
   });
-  console.log('Componsing,', composed);
-  return composed;
-}
+};
+
+/**
+ * Store Factory
+ * @param defaultValue Pass optional default value 
+ */
+export const storeContextFactory = <A,>(defaultValue?:A) => {
+  const contxt = createContext<A | undefined>(defaultValue)
+  
+  const useThisContext = () => {
+    const c = useContext(contxt)
+    
+    if (!c) throw new Error("useThisContext must be inside a Provider with a value")
+    
+    return c;
+  }
+  return [useThisContext, contxt.Provider] as const
+};
 
 /**
  * Store Reducer Factory
@@ -37,7 +59,10 @@ export const composeComponent = (wrappers: FunctionComponent[]): FunctionCompone
  * ---
  * Usage:
  * const [simpleStore, simpleStoreProvider] =
- * storeReducerFactory<ProviderState, Action>(RootReducer, RootState);
+ * storeReducerFactory<ProviderState, Action>(TheReducer, TheState);
+ * 
+ * @param reducer 
+ * @param initialValues 
  */
 export const storeReducerFactory = <StateType, ActionType>(
   reducer: Reducer<StateType, ActionType>, 
@@ -64,7 +89,7 @@ export const storeReducerFactory = <StateType, ActionType>(
 
   /** Them */
   return [Store, Provider] as const;
-}
+};
 
 /**
  * Reducer generator
@@ -72,13 +97,22 @@ export const storeReducerFactory = <StateType, ActionType>(
  * Manage the state actions for the application store context.
  * Each provider can be managed with a reducer. Use this to create reducers.
  * 
- * @todo add a debug condition from an ENV
+ * usage:
+ * const aReducer = createReducer<State, Action>({
+ *    [ACTION_ID]: ():State => {}
+ * })
  */
 export const createReducer = <T extends State, A extends Action>
   (handlers:ReducersHandlers<T, A>) => (state:T, action:A): T => {
-  
-  /** Observe ongoing actions */ /** may add condition if debug is ON */
-  console.log("%c [action]: %s", "font-weight: bold; color: #6B5ADF;", action.type.toUpperCase(), action.payload );
+  /** Observe ongoing actions */
+  if (process.env.NODE_ENV !== 'production') {
+    console.log(
+      "%c [action]: %s", "font-weight: bold; color: #6B5ADF;", 
+      action.type.toUpperCase(), 
+      "[payload]: ",
+      action.payload 
+    );
+  }
   
   if (!handlers.hasOwnProperty(action.type)) {
     return state;
@@ -89,4 +123,65 @@ export const createReducer = <T extends State, A extends Action>
   
   /** Run */
   return handlers[action.type](state, action);
+};
+
+/**
+ * Intl Tools
+ * 
+ * This handy tools to manage our local i18n.
+ * 
+ */
+export const i18nTools = () => {
+  /** To make it easier to read from JSON files */
+  const translations:Languages = {
+    en: EN,
+    es: ES
+  };
+
+  /** This function will be used to create `translate` function for the context */
+  const getTranslations = (locale:string) => (key:string) => 
+      translations[locale][key] || key;
+
+  /** Provide avaliable languages */
+  const availableLanguages = Object.keys(translations);
+
+  /** Them */
+  return [translations, availableLanguages, getTranslations] as const;
+};
+
+/**
+ * Little Helper to get the device language or 
+ * a default one
+ */
+export const getDeviceLanguage = (provided?:string) => {
+  /** Allow me to just use a default one or not at function call */
+  if (provided) {
+    return provided;
+  }
+  const formattedLanguage = (navigator.language || '').split('-');
+
+  return formattedLanguage[0];
+};
+
+/** Get ApplicationName */
+export const getAppName = (name: string): string => {
+  return process.env.REACT_APP_APP_NAME || name;
+};
+
+/** Slugify for internal use, no edge cases */
+export const slugifyMe = (str: string, separator: string = '-'): string => {
+  return str
+      .toLocaleLowerCase()
+      .replace(/[^a-z0-9 -]/g, "")  /** remove invalid chars */
+      .replace(/\s+/g, separator)   /** collapse whitespace and replace by ${separator} */
+      .replace(/-+/g, "-")          /** collapse dashes */
+      .replace(/^-+/, "")           /** trim - from start of text */
+      .replace(/-+$/, "");
+};
+
+/** 
+ * Gets you the app name as slugged prefix 
+ * or prefix it yourself */
+export const getTextDomain = (str: string, prx?: string): string => {
+  return `@${prx ? prx : slugifyMe(getAppName('Create React App Starter'))}/${str}`;
 };
