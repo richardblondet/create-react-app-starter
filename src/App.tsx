@@ -2,6 +2,7 @@ import React from 'react';
 import { ErrorBoundary } from './components/Errors';
 import Routes from './routes';
 import './App.css';
+import { IntlStoreProvider } from './store/providers';
 
 /**
  * Application
@@ -21,7 +22,9 @@ const App = () => {
 
   return (
     <ErrorBoundary>
-      <Routes />
+      <IntlStoreProvider>
+        <Routes />
+      </IntlStoreProvider>
     </ErrorBoundary>
   );
 }
