@@ -1,17 +1,21 @@
 import React, { useContext } from 'react';
 import { ApplicationStore } from '../store/providers';
 import logo from '../logo.svg';
+import { useIntlHook } from '../store/hooks';
 
-const Home = (props:any) => {
+const Home = () => {
   const { state } = useContext(ApplicationStore);
-  // console.log("%c AppStore", "font-size:2em;", state);
+  const { locale, translate, updateLocale } = useIntlHook();
+  // console.log("%c locale", "font-size:2em;", locale);
   
   return (
     <div className="App">
       <header className="App-header updated">
         <img src={logo} height="auto" className="App-logo" alt="logo" />
         <p>
-          <code>React JS Frontend Development. Version { state.version }</code>
+          <code>
+            { translate("app.getting.started", { key: "%VERSION%", value: state.version }) }
+          </code>
         </p>
         <a
           className="App-link"
@@ -21,6 +25,12 @@ const Home = (props:any) => {
         >
           Build with React JS
         </a>
+        <p>
+          <select onChange={(e) => updateLocale(e.target.value)} defaultValue={locale}>
+            <option value="es">Español</option>
+            <option value="en">English</option>
+          </select>
+        </p>
       </header>
     </div>
   );
