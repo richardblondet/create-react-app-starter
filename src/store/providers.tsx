@@ -1,6 +1,6 @@
-import { ApplicationState } from './states';
-import { ApplicationReducer } from './reducers';
-import { ApplicationStoreReducerActions, ApplicationStoreState } from './types';
+import { ApplicationState, IntlState } from './states';
+import { ApplicationReducer, IntlReducer } from './reducers';
+import { ApplicationStoreReducerActions, ApplicationStoreState, IntlStoreReducerActions, IntlStoreState } from './types';
 import { storeReducerFactory } from './utils';
 
 /**
@@ -21,5 +21,13 @@ export const [ApplicationStore, ApplicationStoreProvider] =
     ApplicationReducer,
     ApplicationState
   );
+
+/** Intl Provider */
+export const [IntlStore, IntlStoreProvider] =
+  storeReducerFactory<IntlStoreState, IntlStoreReducerActions>(
+    IntlReducer,
+    IntlState
+  );
+
 
 
