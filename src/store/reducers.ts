@@ -1,6 +1,7 @@
-import { ApplicationStoreState, ApplicationStoreReducerActions } from './types';
-import { APP_INIT } from './actions';
+import { ApplicationStoreState, ApplicationStoreReducerActions, IntlStoreState, IntlStoreReducerActions } from './types';
+import { APP_INIT, INTL_SET_LOCALE } from './actions';
 import { createReducer } from './utils';
+import { ApplicationState, IntlState } from './states';
 
 /**
  * Reducers
@@ -13,9 +14,18 @@ import { createReducer } from './utils';
 
  /** Application reducer */
 export const ApplicationReducer = createReducer<ApplicationStoreState, ApplicationStoreReducerActions>({ 
-  [APP_INIT]: (state:any):ApplicationStoreState => {
+  [APP_INIT]: (state = ApplicationState):ApplicationStoreState => {
     return {
       ...state,
     };
   }
 });
+
+export const IntlReducer = createReducer<IntlStoreState, IntlStoreReducerActions>({
+  [INTL_SET_LOCALE]: (state = IntlState, action) => {
+    return {
+      ...state,
+      locale: action.payload
+    }
+  }
+})
