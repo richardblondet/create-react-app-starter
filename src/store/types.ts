@@ -1,5 +1,5 @@
 import { Reducer, Dispatch } from "react";
-import { init } from "./actions";
+import { init, setLocale } from "./actions";
 
 /**
  * @revision
@@ -9,8 +9,10 @@ import { init } from "./actions";
  * @see {@link https://mariusschulz.com/blog/passing-generics-to-jsx-elements-in-typescript}
  */
 
-
-/** Base State Object */
+export interface Json {
+	[index:string]: string | number | boolean | Date | Json;
+}
+/** Base */
 export interface State {}
 
 /** Base Reducer's Action */
@@ -51,3 +53,23 @@ export type ApplicationStoreReducerActions = ReturnType<
   typeof init
 >;
 /** end ApplicationStoreReducerState */
+
+/** i18n languages shape */
+export type Languages = {
+  [index:string]: Json;
+}
+/** Intl State */
+export interface IntlStoreState extends State {
+  locale: string;
+  translations: Languages;
+};
+/** Intl Actions  */
+export type IntlStoreReducerActions = ReturnType<
+  typeof setLocale 
+>;
+
+/** Translate Function Options */
+export interface TranslateFunctionOptions {
+  key: string;
+  value: string;
+}
