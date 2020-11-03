@@ -1,3 +1,5 @@
+import { getTextDomain } from "./utils";
+
 /**
  * Actions 
  * 
@@ -9,7 +11,14 @@ export default 'store/actions'
 
 
 /** ApplicationStoreReducerActions */
-export const APP_INIT = '@APP/APP_INIT';
+export const APP_INIT = getTextDomain('APP_INIT');
 export const init = () => ({
   type: APP_INIT
+});
+
+/** Intl ReducerActions */
+export const INTL_SET_LOCALE = getTextDomain('INTL_SET_LOCALE');
+export const setLocale = (locale:string) => ({
+  type: INTL_SET_LOCALE,
+  payload: locale
 });
