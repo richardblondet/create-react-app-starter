@@ -4,7 +4,7 @@
 <h1 align="center">React Application Starter Kit</h1>
 
 ## Overview
-This Starter Kit is an opinionated application for frontend development built with `create-react-app`. I built this to stay productive with projects that would require/need all these features. A solid starting point for prototyping MVPs and/or world class react apps.
+This Starter Kit is an opinionated application for frontend    built with `create-react-app`. I built this to stay productive with projects that would require/need all these features. A solid starting point for prototyping MVPs and/or world class react apps.
 
 ### Features
 
