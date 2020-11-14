@@ -19,6 +19,7 @@ import { composeComponent } from './store/utils';
  * nest, just where you need it to.
  * */
 const ComposedProviders = composeComponent([
+  props => <ErrorBoundary {...props} />, /* Error at top level to be able to catch'em all */
   props => <ApplicationStoreProvider {...props} />,
   props => <IntlStoreProvider {...props} />
 ]);
@@ -26,11 +27,9 @@ const ComposedProviders = composeComponent([
 const App = () => {
 
   return (
-    <ErrorBoundary>
-      <ComposedProviders>
-        <Routes />
-      </ComposedProviders>
-    </ErrorBoundary>
+    <ComposedProviders>
+      <Routes />
+    </ComposedProviders>
   );
 }
 

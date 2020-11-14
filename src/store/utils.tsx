@@ -182,6 +182,6 @@ export const slugifyMe = (str: string, separator: string = '-'): string => {
 /** 
  * Gets you the app name as slugged prefix 
  * or prefix it yourself */
-export const getTextDomain = (str: string, prx?: string): string => {
-  return `@${prx ? prx : slugifyMe(getAppName('Create React App Starter'))}/${str}`;
+export const getTextDomain = (str: string, prx: string = slugifyMe(getAppName('Create React App Starter'))): string => {
+  return `@${prx}/${str}`;
 };

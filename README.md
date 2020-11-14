@@ -23,3 +23,5 @@ This Starter Kit is an opinionated application for frontend    built with `creat
 | Tests                         | (coming soon) Unit tests and e2e tests with cypress                  |
 | Spring Animations             | (deliberation) Enabling animations using `react-spring`               |
 
+
+<!-- # https://github.com/todomd/todo.md/blob/master/TODO.md -->
