@@ -1,4 +1,5 @@
 import { Reducer, Dispatch } from "react";
+import { RouteProps } from "react-router-dom";
 import { init, setLocale } from "./actions";
 
 /**
@@ -47,6 +48,7 @@ export type ErrorHandler =
 /** ApplicationStoreReducerState */
 export interface ApplicationStoreState extends State {
   readonly version: string;
+  readonly name: string;
   state?: string;
 }
 export type ApplicationStoreReducerActions = ReturnType< 
@@ -72,4 +74,12 @@ export type IntlStoreReducerActions = ReturnType<
 export interface TranslateFunctionOptions {
   key: string;
   value: string;
+}
+
+/** Private Route */
+export interface ProtectedRouteProps extends RouteProps {
+  isAuthenticated: boolean;
+  isAllowed?: boolean;
+  unauthorizedPath?: string;
+  forbiddenPath?: string;
 }
