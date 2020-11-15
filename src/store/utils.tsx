@@ -37,11 +37,16 @@ export const composeComponent = (wrappers: FunctionComponent[]): FunctionCompone
 
 /**
  * Store Factory
+ * 
+ * Create contexts and provide easy access to state.
+ * Good for readonly states.
+ * 
  * @param defaultValue Pass optional default value 
  */
 export const storeContextFactory = <A,>(defaultValue?:A) => {
   const contxt = createContext<A | undefined>(defaultValue)
   
+  /** Using context right away */
   const useThisContext = () => {
     const c = useContext(contxt)
     
@@ -109,7 +114,7 @@ export const createReducer = <T extends State, A extends Action>
   /** Observe ongoing actions */
   if (process.env.NODE_ENV !== 'production') {
     console.log(
-      "%c REDUCER [action]: %s", "font-weight: bold; color: #6B5ADF;", 
+      "%c ACTION[%s]", "font-weight: bold; color: #6B5ADF;", 
       action.type.toUpperCase(), 
       "[payload]: ",
       action.payload 
