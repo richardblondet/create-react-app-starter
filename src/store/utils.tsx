@@ -9,10 +9,12 @@ import React, {
 import { 
   Action, 
   Languages, 
+  ProtectedRouteProps, 
   ReducersHandlers, 
   State } from "./types";
 import EN from '../i18n/en.json';
 import ES from '../i18n/es.json';
+import { Redirect, Route } from "react-router-dom";
 
 /**
  * Utils 
@@ -114,8 +116,9 @@ export const createReducer = <T extends State, A extends Action>
     );
   }
   
+  /** There should not be any action type going on if its not defined, right? */
   if (!handlers.hasOwnProperty(action.type)) {
-    return state;
+    throw new Error(); /* you better call saul */
   }
 
   /** Apply any middleware to all reducers here */
@@ -132,7 +135,7 @@ export const createReducer = <T extends State, A extends Action>
  * 
  */
 export const i18nTools = () => {
-  /** To make it easier to read from JSON files */
+  /** Add languages heres */
   const translations:Languages = {
     en: EN,
     es: ES
@@ -164,9 +167,14 @@ export const getDeviceLanguage = (provided?:string) => {
 };
 
 /** Get ApplicationName */
-export const getAppName = (name: string): string => {
-  return process.env.REACT_APP_APP_NAME || name;
+export const getAppName = (): string => {
+  return process.env.REACT_APP_APP_NAME || '';
 };
+
+/** Get ApplicationVersion */
+export const getAppVersion = (): string => {
+  return process.env.REACT_APP_APP_VERSION || ''
+}
 
 /** Slugify for internal use, no edge cases */
 export const slugifyMe = (str: string, separator: string = '-'): string => {
@@ -182,6 +190,35 @@ export const slugifyMe = (str: string, separator: string = '-'): string => {
 /** 
  * Gets you the app name as slugged prefix 
  * or prefix it yourself */
-export const getTextDomain = (str: string, prx: string = slugifyMe(getAppName('Create React App Starter'))): string => {
+export const getTextDomain = (str: string, prx: string = slugifyMe(getAppName())): string => {
   return `@${prx}/${str}`;
+};
+
+/**
+ * Private Route Handler
+ * @param props ProtectedRouteProps
+ */
+export const PrivateRoute: React.FC<ProtectedRouteProps> = props => {
+  /** extract */
+  const { 
+    isAuthenticated,
+    isAllowed = true,
+    unauthorizedPath = '/auth',
+    forbiddenPath = '/403',
+    component, 
+    path 
+  } = props;
+  
+  /** if you are not in by any means then  */
+  if (!isAuthenticated) {
+    return <Redirect to={unauthorizedPath} />;
+  }
+  
+  /** if you are in but not allowed then  */
+  if (isAuthenticated && !isAllowed) {
+    return <Redirect to={forbiddenPath} />;
+  }
+
+  /** it */
+  return <Route path={path} component={component} />;
 };
