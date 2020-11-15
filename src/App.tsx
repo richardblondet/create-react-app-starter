@@ -4,6 +4,7 @@ import Routes from './routes';
 import './App.css';
 import { ApplicationStoreProvider, IntlStoreProvider } from './store/providers';
 import { composeComponent } from './store/utils';
+import { ThemeProvider } from 'styled-components';
 
 /**
  * Application
@@ -19,13 +20,13 @@ import { composeComponent } from './store/utils';
  * nest, just where you need it to.
  * */
 const ComposedProviders = composeComponent([
-  props => <ErrorBoundary {...props} />, /* Error at top level to be able to catch'em all */
   props => <ApplicationStoreProvider {...props} />,
-  props => <IntlStoreProvider {...props} />
+  props => <IntlStoreProvider {...props} />,
+  props => <ThemeProvider theme={{}} {...props} />,
+  props => <ErrorBoundary {...props} />,
 ]);
 
 const App = () => {
-
   return (
     <ComposedProviders>
       <Routes />
