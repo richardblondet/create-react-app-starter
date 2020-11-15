@@ -11,7 +11,6 @@ import { ApplicationState, IntlState } from './states';
  * 
  */
 
-
  /** Application reducer */
 export const ApplicationReducer = createReducer<ApplicationStoreState, ApplicationStoreReducerActions>({ 
   [APP_INIT]: (state = ApplicationState):ApplicationStoreState => {

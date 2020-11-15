@@ -7,8 +7,7 @@ import { getTextDomain } from "./utils";
  * Having them all in the same file for small apps or creating
  * an action directory if needed.
  */
-export default 'store/actions'
-
+// export default 'store/actions'
 
 /** ApplicationStoreReducerActions */
 export const APP_INIT = getTextDomain('APP_INIT');

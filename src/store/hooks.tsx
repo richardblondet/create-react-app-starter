@@ -9,7 +9,7 @@ import { TranslateFunctionOptions } from "./types";
  * Hooks let you use state and other React 
  * features without writing a class.
  */
-export default 'store/hooks';
+// export default 'store/hooks';
 
 /**
  * Intl Hook

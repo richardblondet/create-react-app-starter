@@ -19,7 +19,7 @@ import ES from '../i18n/es.json';
  * 
  * This file holds utility functions.
  */
-export default 'store/utils';
+// export default 'store/utils';
 
 /**
  * Compose components

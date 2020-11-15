@@ -12,7 +12,7 @@ import { storeReducerFactory } from './utils';
  * For future reference:
  * @see {@link https://medium.com/simply/state-management-with-react-hooks-and-context-api-at-10-lines-of-code-baf6be8302c} 
  */
-export default 'store/providers';
+// export default 'store/providers';
 
 
 /** Application Provider */

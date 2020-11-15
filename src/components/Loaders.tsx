@@ -5,7 +5,7 @@ import React from 'react';
  * 
  * Should an app have one loading component or more?
  */
-export default 'components/loaders';
+// export default 'components/loaders';
 
 export const Loading = (props:any) => {
   return <div>loading...</div>;

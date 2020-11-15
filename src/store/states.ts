@@ -8,7 +8,6 @@ import { getDeviceLanguage, i18nTools } from './utils';
  * with correct types or interfaces.
  */
 
-
 /** Application */
 export const ApplicationState: ApplicationStoreState = {
   version: '0.0.1',

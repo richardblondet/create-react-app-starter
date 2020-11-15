@@ -15,7 +15,6 @@ import {
  * 
  * An app definitely more than one error components.
  */
-export default 'components/errors';
 
 
 /**
@@ -30,7 +29,8 @@ const Catch = <P extends ErrorBoundaryProps> (
   ErrorComponent: ComponentType<P>, 
   errorHandler?: ErrorHandler
   ): ComponentType<P> => (
-    
+  
+  /** */
   class ErrorBoundaryComponent extends Component<P, ErrorBoundaryState> {
     
     state: ErrorBoundaryState = {
