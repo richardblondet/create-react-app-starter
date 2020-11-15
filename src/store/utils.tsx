@@ -109,7 +109,7 @@ export const createReducer = <T extends State, A extends Action>
   /** Observe ongoing actions */
   if (process.env.NODE_ENV !== 'production') {
     console.log(
-      "%c [action]: %s", "font-weight: bold; color: #6B5ADF;", 
+      "%c REDUCER [action]: %s", "font-weight: bold; color: #6B5ADF;", 
       action.type.toUpperCase(), 
       "[payload]: ",
       action.payload 
@@ -197,6 +197,7 @@ export const getTextDomain = (str: string, prx: string = slugifyMe(getAppName())
 /**
  * Private Route Handler
  * @param props ProtectedRouteProps
+ * @see {@link https://stackoverflow.com/questions/47747754/how-to-rewrite-the-protected-private-route-using-typescript-and-react-router-4-a}
  */
 export const PrivateRoute: React.FC<ProtectedRouteProps> = props => {
   /** extract */
