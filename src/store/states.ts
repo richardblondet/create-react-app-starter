@@ -1,5 +1,5 @@
 import { ApplicationStoreState, IntlStoreState } from './types';
-import { getDeviceLanguage, i18nTools } from './utils';
+import { getAppName, getAppVersion, getDeviceLanguage, i18nTools } from './utils';
 
 /**
  * Application Initial States
@@ -10,7 +10,8 @@ import { getDeviceLanguage, i18nTools } from './utils';
 
 /** Application */
 export const ApplicationState: ApplicationStoreState = {
-  version: '0.0.1',
+  name: getAppName(),
+  version: getAppVersion(),
 };
 
 /** Intl */
