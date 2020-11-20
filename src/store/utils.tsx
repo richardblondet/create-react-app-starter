@@ -209,20 +209,20 @@ export const PrivateRoute: React.FC<ProtectedRouteProps> = props => {
   const { 
     isAuthenticated,
     isAllowed = true,
-    unauthorizedPath = '/auth',
-    forbiddenPath = '/403',
+    unautheticatedPath = '/auth',
+    unauthorizedPath = '/403',
     component, 
     path 
   } = props;
   
   /** if you are not in by any means then  */
   if (!isAuthenticated) {
-    return <Redirect to={unauthorizedPath} />;
+    return <Redirect to={unautheticatedPath} />;
   }
   
   /** if you are in but not allowed then  */
   if (isAuthenticated && !isAllowed) {
-    return <Redirect to={forbiddenPath} />;
+    return <Redirect to={unauthorizedPath} />;
   }
 
   /** it */
