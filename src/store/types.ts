@@ -80,6 +80,6 @@ export interface TranslateFunctionOptions {
 export interface ProtectedRouteProps extends RouteProps {
   isAuthenticated: boolean;
   isAllowed?: boolean;
+  unautheticatedPath?: string;
   unauthorizedPath?: string;
-  forbiddenPath?: string;
 }
