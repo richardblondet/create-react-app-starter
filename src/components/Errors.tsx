@@ -1,14 +1,6 @@
-import React, { 
-  ComponentType, 
-  Component, 
-  ErrorInfo,
-} from 'react';
-
-import { 
-  ErrorBoundaryProps, 
-  ErrorHandler, 
-  ErrorBoundaryState
-} from '../store/types';
+import React from 'react';
+import { ErrorBoundaryProps } from '../store/types';
+import { Catch } from '../store/utils';
 
 /**
  * Errors Components
@@ -17,41 +9,6 @@ import {
  */
 
 
-/**
-* Error Boundary HOC
-* 
-* Returns a component type to isolate errors from its child down.
-* 
-* @returns {ComponentType} React Component Type  
-* @see {@link https://gist.githubusercontent.com/andywer/800f3f25ce3698e8f8b5f1e79fed5c9c/raw/2d0ac6cace3bea9dc94997129c0ef20bfa8112a6/functional-error-boundary.ts}
-*/
-const Catch = <P extends ErrorBoundaryProps> (
-  ErrorComponent: ComponentType<P>, 
-  errorHandler?: ErrorHandler
-  ): ComponentType<P> => (
-  
-  /** */
-  class ErrorBoundaryComponent extends Component<P, ErrorBoundaryState> {
-    
-    state: ErrorBoundaryState = {
-      error: undefined
-    };
-    
-    static getDerivedStateFromError(error: Error) {
-      return { error };
-    }
-    
-    componentDidCatch(error: Error, info: ErrorInfo) {
-      if (errorHandler) {
-        errorHandler(error, info);
-      }
-    }
-    
-    render() {
-      return <ErrorComponent {...this.props} error={this.state.error} />;
-    }
-  }
-);
 
 /**
  * Generic Error Boundary
