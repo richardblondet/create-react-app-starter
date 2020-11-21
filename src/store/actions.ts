@@ -1,4 +1,4 @@
-import { getTextDomain } from "./utils";
+import { getTextDomain } from './utils';
 
 /**
  * Actions 

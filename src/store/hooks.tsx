@@ -1,7 +1,7 @@
-import { useCallback, useContext, useMemo } from "react";
-import { setLocale } from "./actions";
-import { IntlStore } from "./providers";
-import { TranslateFunctionOptions } from "./types";
+import { useCallback, useContext, useMemo } from 'react';
+import { setLocale } from './actions';
+import { IntlStore } from './providers';
+import { TranslateFunctionOptions } from './types';
 
 /**
  * Custom Application Hooks
@@ -14,7 +14,7 @@ import { TranslateFunctionOptions } from "./types";
 /**
  * Intl Hook
  */
-export const useIntlHook = () => {
+export const useIntl = () => {
   const { state, dispatch } = useContext(IntlStore);
   const { locale, translations } = useMemo(() => state, [state]);
 

@@ -1,6 +1,6 @@
-import { Reducer, Dispatch } from "react";
-import { RouteProps } from "react-router-dom";
-import { init, setLocale } from "./actions";
+import { Reducer, Dispatch } from 'react';
+import { RouteProps } from 'react-router-dom';
+import { init, setLocale } from './actions';
 
 /**
  * @revision

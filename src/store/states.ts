@@ -16,8 +16,8 @@ export const ApplicationState: ApplicationStoreState = {
 
 /** Intl */
 const language = getDeviceLanguage('en');
-const [i18nStrings] = i18nTools();
+const { translations } = i18nTools();
 export const IntlState: IntlStoreState = {
   locale: language,
-  translations: i18nStrings,
+  translations
 };

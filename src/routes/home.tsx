@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 import { ApplicationStore } from '../store/providers';
 import logo from '../logo.svg';
-import { useIntlHook } from '../store/hooks';
+import { useIntl } from '../store/hooks';
 
 const Home = () => {
   const { state } = useContext(ApplicationStore);
-  const { locale, translate, updateLocale } = useIntlHook();
+  const { locale, translate, updateLocale } = useIntl();
   // console.log("%c locale", "font-size:2em;", locale);
   
   return (
