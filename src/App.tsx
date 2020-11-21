@@ -1,10 +1,11 @@
 import React from 'react';
 import { ErrorBoundary } from './components/Errors';
 import Routes from './routes';
-import './App.css';
+// import './App.css';
 import { ApplicationStoreProvider, IntlStoreProvider } from './store/providers';
 import { composeComponent } from './store/utils';
 import { ThemeProvider } from 'styled-components';
+import GlobalStyle from './App.styles';
 
 /**
  * Application
@@ -26,10 +27,15 @@ const ComposedProviders = composeComponent([
   props => <ErrorBoundary {...props} />,
 ]);
 
+const { Fragment } = React;
+
 const App = () => {
   return (
     <ComposedProviders>
-      <Routes />
+      <Fragment>
+        <GlobalStyle />
+        <Routes />
+      </Fragment>
     </ComposedProviders>
   );
 }
