@@ -16,11 +16,13 @@ import {
   ErrorHandler, 
   Languages, 
   ProtectedRouteProps, 
+  RangeColorsShape, 
   ReducersHandlers, 
   State } from './types';
 import EN from '../i18n/en.json';
 import ES from '../i18n/es.json';
 import { Redirect, Route } from 'react-router-dom';
+import { shade, tint } from 'polished';
 
 /**
  * Utils 
@@ -271,3 +273,36 @@ export const PrivateRoute: React.FC<ProtectedRouteProps> = props => {
   /** it */
   return <Route path={path} component={component} />;
 };
+
+/**
+ * Generate Palette
+ * 
+ * Little helper to generate palettes of dark and whites
+ * 
+ * @param color the color start point
+ * @param direction the direction<'black' | 'white'>
+ * @param step how much of it
+ */
+export const generatePalette = (color:string, direction:"black" | "white", step:number = 0.1): RangeColorsShape => {
+  const fn = direction === "black" ? shade : tint;
+  let palette:RangeColorsShape = {
+    100: '',
+    200: '',
+    300: '',
+    400: '',
+    500: '',
+    600: '',
+    700: '',
+    800: '',
+    900: ''
+  };
+  let key: keyof RangeColorsShape;
+  let count = direction === "black" ? 0: Object.keys(palette).length;
+  for (key in palette) {
+    direction === "black" ? count++ : count--;
+    if (Object.prototype.hasOwnProperty.call(palette, key)) {
+      palette[key] = fn(count*step, color);
+    }
+  }
+  return palette;
+}

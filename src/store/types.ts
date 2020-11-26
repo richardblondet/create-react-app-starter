@@ -1,7 +1,6 @@
 import { Reducer, Dispatch } from 'react';
 import { RouteProps } from 'react-router-dom';
 import { init, setLocale } from './actions';
-
 /**
  * @revision
  * 
@@ -82,4 +81,55 @@ export interface ProtectedRouteProps extends RouteProps {
   isAllowed?: boolean;
   unautheticatedPath?: string;
   unauthorizedPath?: string;
+}
+
+
+/** Theme Color Spec based on comments in @themes/preset */
+export interface ThemeColors {
+  primary: string;
+  primaryLightened: string;
+  primaryDarkened: string;
+  secondary: string;
+  secondaryLightened: string;
+  secondaryDarkened: string;
+  tertiary: string;
+  red: string;
+  yellow: string;
+  green: string;
+  blue: string;
+  primaryShades: RangeColorsShape;
+  primaryTints: RangeColorsShape;
+  secondaryShades: RangeColorsShape;
+  secondaryTints: RangeColorsShape;
+}
+
+/** Colors for ranges of shade/tints */
+export type RangeColorsShape = {
+  '100': string;
+  '200': string;
+  '300': string;
+  '400': string;
+  '500': string;
+  '600': string;
+  '700': string;
+  '800': string;
+  '900': string;
+}
+
+/** Spacing interface spec */
+export interface Space {
+  NONE: number;
+  XS: number;
+  S: number;
+  M: number;
+  L: number;
+  XL: number;
+  XXL: number;
+  GIANT: number;
+}
+
+/** FontFamilies */
+export interface FontFamily {
+  headings: string;
+  paragraphs: string;
 }
