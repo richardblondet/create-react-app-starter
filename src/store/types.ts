@@ -1,6 +1,8 @@
 import { Reducer, Dispatch } from 'react';
-import { RouteProps } from 'react-router-dom';
-import { init, setLocale } from './actions';
+import { LinkProps, RouteProps } from 'react-router-dom';
+import { DefaultTheme } from 'styled-components';
+import { SpaceProps, SizeProps, TextStyleProps, ShadowProps, ColorProps, TypographyProps } from 'styled-system';
+import { init, setLocale, setTheme } from './actions';
 /**
  * @revision
  * 
@@ -16,10 +18,10 @@ export interface Json {
 export interface State {}
 
 /** Base Reducer's Action */
-export type Action = {
+export interface Action {
   type: string;
-  payload?: any
-};
+  payload: any;
+}
 
 /** Reducers Handlers object */
 export interface ReducersHandlers<T, P> {
@@ -48,10 +50,12 @@ export type ErrorHandler =
 export interface ApplicationStoreState extends State {
   readonly version: string;
   readonly name: string;
-  state?: string;
+  theme: string;
 }
+
+/** ApplicationStoreReducerState Actions */
 export type ApplicationStoreReducerActions = ReturnType< 
-  typeof init
+  typeof setTheme | typeof init
 >;
 /** end ApplicationStoreReducerState */
 
@@ -83,24 +87,24 @@ export interface ProtectedRouteProps extends RouteProps {
   unauthorizedPath?: string;
 }
 
-
 /** Theme Color Spec based on comments in @themes/preset */
 export interface ThemeColors {
-  primary: string;
-  primaryLightened: string;
-  primaryDarkened: string;
-  secondary: string;
-  secondaryLightened: string;
-  secondaryDarkened: string;
-  tertiary: string;
-  red: string;
-  yellow: string;
-  green: string;
-  blue: string;
-  primaryShades: RangeColorsShape;
-  primaryTints: RangeColorsShape;
-  secondaryShades: RangeColorsShape;
-  secondaryTints: RangeColorsShape;
+  'primary': string;
+  'primary-lightened': string;
+  'primary-darkened': string;
+  'secondary': string;
+  'secondary-lightened': string;
+  'secondary-darkened': string;
+  'tertiary': string;
+  'white': string;
+  'red': string;
+  'yellow': string;
+  'green': string;
+  'blue': string;
+  'primary-shades': RangeColorsShape;
+  'primary-tints': RangeColorsShape;
+  'secondary-shades': RangeColorsShape;
+  'secondary-tints': RangeColorsShape;
 }
 
 /** Colors for ranges of shade/tints */
@@ -132,4 +136,65 @@ export interface Space {
 export interface FontFamily {
   headings: string;
   paragraphs: string;
+  mono: string;
+  serif: string;
+}
+
+/** TextPrimitive TextPrimitiveProps */
+export type TextPrimitiveProps =
+  | TypographyProps
+  | ColorProps
+  | ShadowProps
+  | SpaceProps
+  | SizeProps
+  | TextStyleProps
+  | { as?: keyof JSX.IntrinsicElements | React.ComponentType<any> };
+
+/** Typography Component Group Spec */
+export interface TypographyStyles {
+  H1: TextPrimitiveProps;
+  H2: TextPrimitiveProps;
+  H3: TextPrimitiveProps;
+  H4: TextPrimitiveProps;
+  H5: TextPrimitiveProps;
+  H6: TextPrimitiveProps;
+  Lead: TextPrimitiveProps;
+  Paragraph: TextPrimitiveProps;
+  Small: TextPrimitiveProps;
+  Link: TextPrimitiveProps;
+}
+
+/** Anchor */
+export type AnchorProps = TextPrimitiveProps & Pick<LinkProps, 'to'> & { 
+  onClick?: (event: React.MouseEvent<HTMLAnchorElement>) => void 
+};
+
+/** Group component shape */
+export interface TypographyComponentProps {
+  H1: React.FC<TextPrimitiveProps>;
+  H2: React.FC<TextPrimitiveProps>;
+  H3: React.FC<TextPrimitiveProps>;
+  H4: React.FC<TextPrimitiveProps>;
+  H5: React.FC<TextPrimitiveProps>;
+  H6: React.FC<TextPrimitiveProps>;
+  Lead: React.FC<TextPrimitiveProps>;
+  Paragraph: React.FC<TextPrimitiveProps>;
+  Small: React.FC<TextPrimitiveProps>;
+  Link: React.FC<AnchorProps>;
+}
+
+export interface PresetTheme extends DefaultTheme {
+  colors: ThemeColors;
+  space: Space;
+  fonts: FontFamily;
+  fontSizes: string[];
+  radii: string;
+}
+
+/** Adding a new theme: */
+/** export interface NewTheme extends PresetTheme */
+
+/** Themes */
+export type AppThemes = {
+  [index: string]: PresetTheme;
 }
