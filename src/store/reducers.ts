@@ -1,5 +1,5 @@
 import { ApplicationStoreState, ApplicationStoreReducerActions, IntlStoreState, IntlStoreReducerActions } from './types';
-import { APP_INIT, INTL_SET_LOCALE } from './actions';
+import { APP_INIT, APP_SET_THEME, INTL_SET_LOCALE } from './actions';
 import { createReducer } from './utils';
 import { ApplicationState, IntlState } from './states';
 
@@ -17,9 +17,16 @@ export const ApplicationReducer = createReducer<ApplicationStoreState, Applicati
     return {
       ...state,
     };
+  },
+  [APP_SET_THEME]: (state = ApplicationState, action):ApplicationStoreState => {
+    return {
+      ...state,
+      theme: action.payload
+    }
   }
 });
 
+/** Internationalization reducer */
 export const IntlReducer = createReducer<IntlStoreState, IntlStoreReducerActions>({
   [INTL_SET_LOCALE]: (state = IntlState, action) => {
     return {
@@ -27,4 +34,4 @@ export const IntlReducer = createReducer<IntlStoreState, IntlStoreReducerActions
       locale: action.payload
     }
   }
-})
+});
