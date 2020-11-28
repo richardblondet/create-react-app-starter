@@ -1,7 +1,7 @@
 import { Reducer, Dispatch } from 'react';
 import { LinkProps, RouteProps } from 'react-router-dom';
 import { DefaultTheme } from 'styled-components';
-import { SpaceProps, SizeProps, TextStyleProps, ShadowProps, ColorProps, TypographyProps } from 'styled-system';
+import { SpaceProps, SizeProps, TextStyleProps, ShadowProps, ColorProps, TypographyProps, DisplayProps } from 'styled-system';
 import { init, setLocale, setTheme } from './actions';
 /**
  * @revision
@@ -122,14 +122,14 @@ export type RangeColorsShape = {
 
 /** Spacing interface spec */
 export interface Space {
-  NONE: number;
-  XS: number;
-  S: number;
-  M: number;
-  L: number;
-  XL: number;
-  XXL: number;
-  GIANT: number;
+  none: number;
+  xs: number;
+  s: number;
+  m: number;
+  l: number;
+  xl: number;
+  xxl: number;
+  giant: number;
 }
 
 /** FontFamilies */
@@ -148,6 +148,7 @@ export type TextPrimitiveProps =
   | SpaceProps
   | SizeProps
   | TextStyleProps
+  | DisplayProps
   | { as?: keyof JSX.IntrinsicElements | React.ComponentType<any> };
 
 /** Typography Component Group Spec */

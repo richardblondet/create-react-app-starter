@@ -92,14 +92,14 @@ export const colors: ThemeColors = {
 
 /** Spacing with understandable keys */
 export const space: Space = {
-  NONE: 0,
-  XS: 4,
-  S: 8,
-  M: 16,
-  L: 32,
-  XL: 64,
-  XXL: 128,
-  GIANT: 256
+  none: 0,
+  xs: 4,
+  s: 8,
+  m: 16,
+  l: 32,
+  xl: 64,
+  xxl: 128,
+  giant: 256
 }
 
 /** this theme uses Inter free google font in both body and headings */
@@ -117,9 +117,9 @@ export const fontSizes: Array<string> = [
   modularScale(0), 
   modularScale(1), 
   modularScale(2), 
-  modularScale(3), 
-  modularScale(4), 
-  modularScale(5)
+  modularScale(2.7), 
+  modularScale(3.3), 
+  modularScale(4)
 ];
 
 /** Radio value */

@@ -14,7 +14,6 @@ import { Redirect, Route } from 'react-router-dom';
 import { shade, tint } from 'polished';
 import { 
   Action, 
-  AppThemes, 
   ErrorBoundaryProps, 
   ErrorBoundaryState, 
   ErrorHandler, 
@@ -23,10 +22,12 @@ import {
   RangeColorsShape, 
   ReducersHandlers, 
   State, 
-  TextPrimitiveProps} from './types';
+  TextPrimitiveProps
+} from './types';
 import EN from '../i18n/en.json';
 import ES from '../i18n/es.json';
 import { TextPrimitive } from '../components/Utils';
+import themes from '../themes';
 
 /**
  * Utils 
@@ -156,7 +157,7 @@ export const storeReducerFactory = <StateType, ActionType>(
  * usage:
  * const aReducer = createReducer<State, Action>({
  *    [ACTION_ID]: ():State => {}
- * })
+ * });
  */
 export const createReducer = <T extends State, A extends Action>
   (handlers:ReducersHandlers<T, A>) => (state:T, action:A): T => {
@@ -329,3 +330,6 @@ export const createTextComponent: (styleProps: TextPrimitiveProps, displayName?:
   component.displayName = displayName;
   return component;
 }
+
+/** Get a theme */
+export const getTheme = (name: string) => themes[name] || name;
