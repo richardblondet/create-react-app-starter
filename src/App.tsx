@@ -1,9 +1,8 @@
 import React from 'react';
 import { ErrorBoundary } from './components/Errors';
 import Routes from './routes';
-// import './App.css';
 import { ApplicationStoreProvider, IntlStoreProvider } from './store/providers';
-import { composeComponent } from './store/utils';
+import { composeComponent, getTheme } from './store/utils';
 import { ThemeProvider } from 'styled-components';
 import GlobalStyle from './App.styles';
 
@@ -12,6 +11,12 @@ import GlobalStyle from './App.styles';
  * 
  * Towards @version 1.0.0
  */
+const System: React.FC<{}> = ({ children }) => {
+  const theme = getTheme('preset');
+
+  // console.log('theme', theme);
+  return <ThemeProvider theme={theme}>{children}</ThemeProvider>
+};
 
 /** 
  * Compose Providers 
@@ -23,7 +28,7 @@ import GlobalStyle from './App.styles';
 const ComposedProviders = composeComponent([
   props => <ApplicationStoreProvider {...props} />,
   props => <IntlStoreProvider {...props} />,
-  props => <ThemeProvider theme={{}} {...props} />,
+  props => <System {...props} />,
   props => <ErrorBoundary {...props} />,
 ]);
 
