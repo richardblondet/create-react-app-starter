@@ -12,6 +12,7 @@ import { getAppName, getAppVersion, getDeviceLanguage, i18nTools } from './utils
 export const ApplicationState: ApplicationStoreState = {
   name: getAppName(),
   version: getAppVersion(),
+  theme: 'preset',
 };
 
 /** Intl */
