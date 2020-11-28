@@ -1,6 +1,6 @@
-import { useCallback, useContext, useMemo } from 'react';
-import { setLocale } from './actions';
-import { IntlStore } from './providers';
+import { useCallback, useContext, useEffect, useLayoutEffect, useMemo } from 'react';
+import { setLocale, setTheme } from './actions';
+import { ApplicationStore, IntlStore } from './providers';
 import { TranslateFunctionOptions } from './types';
 
 /**
@@ -9,24 +9,24 @@ import { TranslateFunctionOptions } from './types';
  * Hooks let you use state and other React 
  * features without writing a class.
  */
-// export default 'store/hooks';
 
 /**
- * Intl Hook
+ * useIntl
+ * 
+ * Intl Hook for using strings and setting locale
  */
 export const useIntl = () => {
   const { state, dispatch } = useContext(IntlStore);
   const { locale, translations } = useMemo(() => state, [state]);
 
   /** hook helper function */
-  const translate = (key:string, options?:TranslateFunctionOptions) => {
-
+  const translate = (key: string, options?: TranslateFunctionOptions) => {
     /** Allow us to so simple var replacement, no edge cases */
     if (translations[locale][key]) {
       if (options && (options.key && options.value)) {
         return (translations[locale][key] as string).replace(options.key, options.value);
       }
-      return translations[locale][key]
+      return translations[locale][key];
     }
     return key;
   }
@@ -43,4 +43,34 @@ export const useIntl = () => {
     updateLocale,
     translations
   };
+};
+
+/**
+ * useTheme
+ * 
+ * API for interacting with the Application provider
+ * and managing theme
+ */
+export const useTheme = (name: string) => {
+  const { state: { theme }, dispatch } = useContext(ApplicationStore);
+  const selectedTheme = useMemo(() => theme, [theme]);
+  
+  /** Set the theme  */
+  useEffect(() => dispatch(setTheme(selectedTheme)));
+  
+  /** Set the theme  */
+  useLayoutEffect(
+    () => {
+      // Update css variables in document's root element
+      document.body.classList.add(`selected-theme-${selectedTheme}`);
+    }, [selectedTheme] 
+  );
+
+  /** Fire inmediately to use */
+  if (name) {
+    setTheme(selectedTheme);
+  }
+
+  /** Them vars */
+  return { theme, setTheme } as const;
 };

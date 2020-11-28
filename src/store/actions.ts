@@ -12,7 +12,13 @@ import { getTextDomain } from './utils';
 /** ApplicationStoreReducerActions */
 export const APP_INIT = getTextDomain('APP_INIT');
 export const init = () => ({
-  type: APP_INIT
+  type: APP_INIT,
+  payload: ''
+});
+export const APP_SET_THEME = getTextDomain('APP_SET_THEME');
+export const setTheme = (theme: string) => ({
+  type: APP_SET_THEME,
+  payload: theme
 });
 
 /** Intl ReducerActions */
