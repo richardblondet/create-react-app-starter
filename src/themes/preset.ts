@@ -1,5 +1,5 @@
-import { darken, lighten } from 'polished';
-import { FontFamily, Space, ThemeColors } from '../store/types';
+import { darken, lighten, modularScale } from 'polished';
+import { FontFamily, PresetTheme, Space, ThemeColors } from '../store/types';
 import { generatePalette } from '../store/utils';
 
 /**
@@ -61,8 +61,9 @@ export const palette = {
  * values of the theme
  */
 const {
-  blueRoyal:primary,
-  shark:secondary,
+  blueRoyal: primary,
+  shark: secondary,
+  darkWhite: white,
   red,
   yellow,
   green,
@@ -73,19 +74,20 @@ const {
 export const colors: ThemeColors = {
   primary,
   secondary,
+  white,
   red,
   yellow,
   green,
   blue,
-  tertiary: lighten(0.25, secondary),
-  primaryLightened: lighten(0.25, primary),
-  primaryDarkened: darken(0.25, primary),
-  secondaryLightened: lighten(0.25, secondary),
-  secondaryDarkened: darken(0.25, secondary),
-  primaryShades: generatePalette(primary, 'black'),
-  primaryTints: generatePalette(primary, 'white', 0.115),
-  secondaryShades: generatePalette(lighten(0.25, secondary), 'black', 0.05),
-  secondaryTints: generatePalette(lighten(0.25, secondary), 'white')
+  'tertiary': lighten(0.25, secondary),
+  'primary-lightened': lighten(0.25, primary),
+  'primary-darkened': darken(0.25, primary),
+  'secondary-lightened': lighten(0.25, secondary),
+  'secondary-darkened': darken(0.25, secondary),
+  'primary-shades': generatePalette(primary, 'black'),
+  'primary-tints': generatePalette(primary, 'white', 0.115),
+  'secondary-shades': generatePalette(lighten(0.25, secondary), 'black', 0.05),
+  'secondary-tints': generatePalette(lighten(0.25, secondary), 'white')
 };
 
 /** Spacing with understandable keys */
@@ -103,19 +105,33 @@ export const space: Space = {
 /** this theme uses Inter free google font in both body and headings */
 export const fonts: FontFamily = {
   headings: 'Inter, Open-Sans, Helvetica, Arial, Sans-Serif;',
-  paragraphs: 'Inter, Open-Sans, Helvetica, Arial, Sans-Serif;'
+  paragraphs: 'Inter, Open-Sans, Helvetica, Arial, Sans-Serif;',
+  mono: 'Mono',
+  serif: 'athelas, georgia, times, serif',
 };
 
-/** fontSizes for this theme */
-export let fontSizes: Array<number> = [
-  12, 14, 16, 20, 24, 32, 48, 64, 96
+/** fontSizes for this theme. They are modular */
+export const fontSizes: Array<string> = [
+  // 12, 14, 16, 20, 24, 32, 48, 64, 96
+  modularScale(-1), 
+  modularScale(0), 
+  modularScale(1), 
+  modularScale(2), 
+  modularScale(3), 
+  modularScale(4), 
+  modularScale(5)
 ];
 
+/** Radio value */
 export const radii: string = '.25rem';
 
-export default {
+/** Theme */
+const theme: PresetTheme = {
   colors,
   space,
+  fonts,
   fontSizes,
   radii,
 };
+
+export default theme;
