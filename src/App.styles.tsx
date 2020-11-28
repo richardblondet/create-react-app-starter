@@ -54,11 +54,11 @@ const reset = css`
     border-spacing: 0;
   }
 `
+/** GlobalStyle */
 const GlobalStyle = createGlobalStyle`
   ${reset}
 
   body {
-    
     font-family: 'Inter', Open-Sans, Helvetica, Arial, Sans-Serif;
   }
 `;
