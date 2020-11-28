@@ -7,6 +7,7 @@ import {
   textStyle,
   typography,
   shadow,
+  display,
 } from 'styled-system';
 
 
@@ -19,7 +20,8 @@ export const text = compose(
   shadow,
   space,
   size,
-  textStyle
+  textStyle,
+  display
 );
 
 /**
