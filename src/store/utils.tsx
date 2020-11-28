@@ -7,10 +7,14 @@ import React, {
   useContext,
   ComponentType,
   Component,
-  ErrorInfo, 
+  ErrorInfo,
+  FC
 } from 'react';
+import { Redirect, Route } from 'react-router-dom';
+import { shade, tint } from 'polished';
 import { 
   Action, 
+  AppThemes, 
   ErrorBoundaryProps, 
   ErrorBoundaryState, 
   ErrorHandler, 
@@ -18,11 +22,11 @@ import {
   ProtectedRouteProps, 
   RangeColorsShape, 
   ReducersHandlers, 
-  State } from './types';
+  State, 
+  TextPrimitiveProps} from './types';
 import EN from '../i18n/en.json';
 import ES from '../i18n/es.json';
-import { Redirect, Route } from 'react-router-dom';
-import { shade, tint } from 'polished';
+import { TextPrimitive } from '../components/Utils';
 
 /**
  * Utils 
@@ -191,7 +195,10 @@ export const i18nTools = () => {
     es: ES
   };
 
-  /** This function will be used to create `translate` function for the context */
+  /** 
+   * This function will be used to create `translate` function for the context 
+   * @deprecated
+   */
   const getTranslations = (locale:string) => (key:string) => 
       translations[locale][key] || key;
 
@@ -211,6 +218,7 @@ export const getDeviceLanguage = (provided?:string) => {
   if (provided) {
     return provided;
   }
+  /** Get the device language otherwise */
   const formattedLanguage = (navigator.language || '').split('-');
 
   return formattedLanguage[0];
@@ -257,7 +265,8 @@ export const PrivateRoute: React.FC<ProtectedRouteProps> = props => {
     unautheticatedPath = '/auth',
     unauthorizedPath = '/403',
     component, 
-    path 
+    path,
+    ...rest
   } = props;
   
   /** if you are not in by any means then  */
@@ -271,7 +280,7 @@ export const PrivateRoute: React.FC<ProtectedRouteProps> = props => {
   }
 
   /** it */
-  return <Route path={path} component={component} />;
+  return <Route path={path} component={component} {...rest} />;
 };
 
 /**
@@ -305,4 +314,18 @@ export const generatePalette = (color:string, direction:"black" | "white", step:
     }
   }
   return palette;
+}
+
+/**
+ * Creates a component passing the base dynamic
+ * component. 
+ */
+export const createTextComponent: (styleProps: TextPrimitiveProps, displayName?: string) => FC<TextPrimitiveProps> = (styleProps, displayName) => {
+  const component: React.FC<TextPrimitiveProps> = props => (
+    <TextPrimitive {...styleProps} {...props}>
+      {props.children}
+    </TextPrimitive>
+  );
+  component.displayName = displayName;
+  return component;
 }
