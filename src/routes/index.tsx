@@ -1,7 +1,7 @@
 import React, { lazy, Suspense } from 'react';
 import { Route, BrowserRouter, Switch } from 'react-router-dom';
 import { Loading } from '../components/Loaders';
-import { PrivateRoute } from '../store/utils';
+import { PrivateRoute } from '../components/Utils';
 
 /**
  * Routes
