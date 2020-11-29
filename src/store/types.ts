@@ -1,7 +1,7 @@
 import { Reducer, Dispatch } from 'react';
 import { LinkProps, RouteProps } from 'react-router-dom';
 import { DefaultTheme } from 'styled-components';
-import { SpaceProps, SizeProps, TextStyleProps, ShadowProps, ColorProps, TypographyProps, DisplayProps } from 'styled-system';
+import { SpaceProps, SizeProps, TextStyleProps, ShadowProps, ColorProps, TypographyProps, DisplayProps, LineHeightProps } from 'styled-system';
 import { init, setLocale, setTheme } from './actions';
 /**
  * @revision
@@ -143,12 +143,14 @@ export interface FontFamily {
 /** TextPrimitive TextPrimitiveProps */
 export type TextPrimitiveProps =
   | TypographyProps
+  | WhiteSpaceProps
   | ColorProps
   | ShadowProps
   | SpaceProps
   | SizeProps
   | TextStyleProps
   | DisplayProps
+  | LineHeightProps
   | { as?: keyof JSX.IntrinsicElements | React.ComponentType<any> };
 
 /** Typography Component Group Spec */
@@ -163,6 +165,11 @@ export interface TypographyStyles {
   Paragraph: TextPrimitiveProps;
   Small: TextPrimitiveProps;
   Link: TextPrimitiveProps;
+}
+
+/** WhiteSpace temporal interface */
+export interface WhiteSpaceProps {
+  whiteSpace?: "normal" | "nowrap" | "pre" | "pre-wrap" | "pre-line" | "break-spaces" | "inherit" | "initial" | "unset";
 }
 
 /** Anchor */

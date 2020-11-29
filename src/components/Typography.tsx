@@ -1,6 +1,6 @@
 import React from 'react';
 import { AnchorProps, TypographyComponentProps, TypographyStyles } from "../store/types";
-import { colors } from "../themes/preset";
+// import { colors } from "../themes/preset";
 import { Link as RouterLink } from 'react-router-dom';
 import { TextPrimitive } from './Utils';
 import { createTextComponent } from '../store/utils';
@@ -17,54 +17,62 @@ import { createTextComponent } from '../store/utils';
  * Text components:
  * H1, H2, H3, H4, H5, H6, Lead, Paragraph, Small, 
  */
-
+const fontWeight = 600;
+const lineHeight = '1.2';
+const my = 'm';
 export const typographyStyles: TypographyStyles = {
   H1: {
     fontSize: 6,
-    fontWeight: 600,
-    my: 'm',
+    fontWeight,
+    lineHeight,
+    my,
     as: 'h1',
   },
   H2: {
     fontSize: 5,
-    fontWeight: 600,
-    my: 'm',
+    fontWeight,
+    lineHeight,
+    my,
     as: 'h2',
   },
   H3: {
     fontSize: 4,
-    fontWeight: 600,
-    my: 'm',
+    fontWeight,
+    lineHeight,
+    my,
     as: 'h3',
   },
   H4: {
     fontSize: 3,
-    fontWeight: 600,
-    my: 'm',
+    fontWeight,
+    lineHeight,
+    my,
     as: 'h4',
   },
   H5: {
-    fontWeight: 600,
+    fontWeight,
     fontSize: 2,
-    my: 'm',
+    lineHeight,
+    my,
     as: 'h5',
   },
   H6: {
-    fontWeight: 600,
+    fontWeight,
     fontSize: 1,
-    my: 'm',
+    lineHeight,
+    my,
     as: 'h6',
   },
   Lead: {
     fontSize: 2,
     fontWeight: 300,
-    my: 'm',
+    my,
     as: 'p',
   },
   Paragraph: {
     fontSize: 1,
     fontWeight: 500,
-    my: 'm',
+    my,
     as: 'p',
     color: 'tertiary'
   },
