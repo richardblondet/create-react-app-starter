@@ -11,13 +11,14 @@ import GlobalStyle from './App.styles';
  * 
  * Towards @version 1.0.0
  */
-const System: React.FC<{}> = ({ children }) => {
-  const theme = getTheme('preset');
-
+// const System: React.FC<{}> = ({ children }) => {
+  // const theme = getTheme('preset');
+  
   // console.log('theme', theme);
-  return <ThemeProvider theme={theme}>{children}</ThemeProvider>
-};
-
+  // return <ThemeProvider theme={theme}>{children}</ThemeProvider>
+  // };
+  
+const theme = getTheme('preset');
 /** 
  * Compose Providers 
  * 
@@ -28,7 +29,7 @@ const System: React.FC<{}> = ({ children }) => {
 const ComposedProviders = composeComponent([
   props => <ApplicationStoreProvider {...props} />,
   props => <IntlStoreProvider {...props} />,
-  props => <System {...props} />,
+  props => <ThemeProvider theme={theme} {...props} />,
   props => <ErrorBoundary {...props} />,
 ]);
 
