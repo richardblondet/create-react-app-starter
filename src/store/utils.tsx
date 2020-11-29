@@ -254,37 +254,6 @@ export const getTextDomain = (str: string, prx: string = slugifyMe(getAppName())
 };
 
 /**
- * Private Route Handler
- * @param props ProtectedRouteProps
- * @see {@link https://stackoverflow.com/questions/47747754/how-to-rewrite-the-protected-private-route-using-typescript-and-react-router-4-a}
- */
-export const PrivateRoute: React.FC<ProtectedRouteProps> = props => {
-  /** extract */
-  const { 
-    isAuthenticated,
-    isAllowed = true,
-    unautheticatedPath = '/auth',
-    unauthorizedPath = '/403',
-    component, 
-    path,
-    ...rest
-  } = props;
-  
-  /** if you are not in by any means then  */
-  if (!isAuthenticated) {
-    return <Redirect to={unautheticatedPath} />;
-  }
-  
-  /** if you are in but not allowed then  */
-  if (isAuthenticated && !isAllowed) {
-    return <Redirect to={unauthorizedPath} />;
-  }
-
-  /** it */
-  return <Route path={path} component={component} {...rest} />;
-};
-
-/**
  * Generate Palette
  * 
  * Little helper to generate palettes of dark and whites
@@ -292,9 +261,10 @@ export const PrivateRoute: React.FC<ProtectedRouteProps> = props => {
  * @param color the color start point
  * @param direction the direction<'black' | 'white'>
  * @param step how much of it
+ * 
+ * @deprecated
  */
-export const generatePalette = (color:string, direction:"black" | "white", step:number = 0.1): RangeColorsShape => {
-  const fn = direction === "black" ? shade : tint;
+export const generatePalette = (color:string, direction:typeof shade | typeof tint, step:number = 0.1): RangeColorsShape => {
   let palette:RangeColorsShape = {
     100: '',
     200: '',
@@ -307,11 +277,11 @@ export const generatePalette = (color:string, direction:"black" | "white", step:
     900: ''
   };
   let key: keyof RangeColorsShape;
-  let count = direction === "black" ? 0: Object.keys(palette).length;
+  let count = direction === shade ? 0: Object.keys(palette).length;
   for (key in palette) {
-    direction === "black" ? count++ : count--;
+    direction === shade ? count++ : count--;
     if (Object.prototype.hasOwnProperty.call(palette, key)) {
-      palette[key] = fn(count*step, color);
+      palette[key] = (direction(count*step, color) as string);
     }
   }
   return palette;

@@ -1,6 +1,6 @@
-import { darken, lighten, modularScale } from 'polished';
+import { darken, lighten, modularScale, shade, tint } from 'polished';
 import { FontFamily, PresetTheme, Space, ThemeColors } from '../store/types';
-import { generatePalette } from '../store/utils';
+// import { generatePalette } from '../store/utils';
 
 /**
  * Naming keeps getting harder
@@ -70,7 +70,7 @@ const {
   blue,
 } = palette;
 
-/** Created a type spec for the colors */
+// /** Created a type spec for the colors */
 export const colors: ThemeColors = {
   primary,
   secondary,
@@ -84,10 +84,54 @@ export const colors: ThemeColors = {
   'primary-darkened': darken(0.25, primary),
   'secondary-lightened': lighten(0.25, secondary),
   'secondary-darkened': darken(0.25, secondary),
-  'primary-shades': generatePalette(primary, 'black'),
-  'primary-tints': generatePalette(primary, 'white', 0.115),
-  'secondary-shades': generatePalette(lighten(0.25, secondary), 'black', 0.05),
-  'secondary-tints': generatePalette(lighten(0.25, secondary), 'white')
+  // 'primary-shades': generatePalette(primary, shade),
+  'primary-shades': {
+    100: shade(1*0.1, primary),
+    200: shade(2*0.1, primary),
+    300: shade(3*0.1, primary),
+    400: shade(4*0.1, primary),
+    500: shade(5*0.1, primary),
+    600: shade(6*0.1, primary),
+    700: shade(7*0.1, primary),
+    800: shade(8*0.1, primary),
+    900: shade(9*0.1, primary)
+  },
+  // 'primary-tints': generatePalette(primary, tint, 0.115),
+  'primary-tints': {
+    100: tint(9*0.1, primary),
+    200: tint(8*0.1, primary),
+    300: tint(7*0.1, primary),
+    400: tint(6*0.1, primary),
+    500: tint(5*0.1, primary),
+    600: tint(4*0.1, primary),
+    700: tint(3*0.1, primary),
+    800: tint(2*0.1, primary),
+    900: tint(1*0.1, primary)
+  },
+  // 'secondary-shades': generatePalette(lighten(0.25, secondary), shade, 0.05),
+  'secondary-shades': {
+    100: shade(1*0.05, lighten(0.15, secondary)),
+    200: shade(2*0.05, lighten(0.15, secondary)),
+    300: shade(3*0.05, lighten(0.15, secondary)),
+    400: shade(4*0.05, lighten(0.15, secondary)),
+    500: shade(5*0.05, lighten(0.15, secondary)),
+    600: shade(6*0.05, lighten(0.15, secondary)),
+    700: shade(7*0.05, lighten(0.15, secondary)),
+    800: shade(8*0.05, lighten(0.15, secondary)),
+    900: shade(9*0.05, lighten(0.15, secondary))
+  },
+  // 'secondary-tints': generatePalette(lighten(0.25, secondary), tint)
+  'secondary-tints': {
+    100: tint(9*0.1, secondary),
+    200: tint(8*0.1, secondary),
+    300: tint(7*0.1, secondary),
+    400: tint(6*0.1, secondary),
+    500: tint(5*0.1, secondary),
+    600: tint(4*0.1, secondary),
+    700: tint(3*0.1, secondary),
+    800: tint(2*0.1, secondary),
+    900: tint(1*0.1, secondary)
+  }
 };
 
 /** Spacing with understandable keys */
